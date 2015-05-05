@@ -1,6 +1,3 @@
-require 'rails'
-require 'for_tenant'
-
 Rails.application.routes.draw do
 
   resources :units
