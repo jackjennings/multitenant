@@ -1,20 +1,11 @@
-class TenantSubdomainConstraint
-  attr_accessor :excludes
-
-  def initialize excludes: ['www', '']
-    @excludes = excludes
-  end
-
-  def matches? request
-    excludes.exclude?(request.subdomain)
-  end
-end
+require 'rails'
+require 'for_tenant'
 
 Rails.application.routes.draw do
 
   resources :units
 
-  scope constraints: TenantSubdomainConstraint.new do
+  for_tenant do
     # Multiple roots seem to require one to be named
     root to: 'buyers#show', as: :tenant_root
     resource :buyer, only: :show
